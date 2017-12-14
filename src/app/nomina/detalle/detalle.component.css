@@ -1,0 +1,60 @@
+:host{
+  width: 700px;
+  margin-left: 50px;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
+.elemento{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gainsboro;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.elemento_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gainsboro;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: aliceblue;
+}
+.elemento_2{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gainsboro;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: lavender;
+}
+.datos{
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.nomina{
+	display: flex;
+	flex-direction: column;
+}
+ .nombre{
+  width: 40%;
+  text-align: left;
+}
+.descripcion{
+  width: 40%;
+  text-align: left;
+}
+.campo{
+  width: 20%;
+  text-align: right;
+}

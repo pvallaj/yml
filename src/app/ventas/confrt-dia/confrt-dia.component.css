@@ -1,0 +1,8 @@
+.elemento{
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid gray;
+  width: 100%;
+  justify-content: space-between;
+  height: 40px;
+}

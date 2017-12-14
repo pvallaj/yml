@@ -1,0 +1,39 @@
+.row{
+  display: flex;
+  flex-direction: row;
+}
+.elemento{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid gainsboro;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.datos{
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+.campoc{
+  width: 100%;
+  padding: 0 5px 0 10px;
+}
+.campo{
+  width: 20%;
+  text-align: right;
+}
+.nomina{
+  display: flex;
+  flex-direction: column;
+}
+
+.btnl{
+  color:black;
+}
+.btnl:hover{
+  cursor:pointer;
+  color:blue;
+  font-weight: bold;
+}

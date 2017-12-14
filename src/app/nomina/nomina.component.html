@@ -1,0 +1,67 @@
+
+<form #f="ngForm" >
+  <div class="row">
+    <div class="campo">
+        <md-input-container  >
+          <input  mdInput [mdDatepicker]="pk1" placeholder="Inicio:"  [(ngModel)]="fi" name="fecha" >
+          <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
+        </md-input-container>
+        <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
+    </div>  
+    <div class="campo">
+        <md-input-container  mdTooltip="">
+          <input 
+              mdInput [mdDatepicker]="pk2" 
+              placeholder="Termino:" 
+              (change)="cambioFecha()"
+               [(ngModel)]="ff" name="fecha" >
+          <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
+        </md-input-container>
+        <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
+    </div> 
+    <div class="campo">
+      <md-input-container  mdTooltip="">
+        <input mdInput name="descripcion" required [(ngModel)]="descripcion" maxlength="200" placeholder="Descripcón"  >
+      </md-input-container>
+    </div>
+    <div class="campo">
+      <button [disabled]="f.invalid" md-raised-button color="primary" (click)="agregarNomina(f.value)">Agregar</button>
+    </div>
+  </div> 
+	
+
+	
+
+</form>
+
+<md-list>
+  <h3 md-subheader>Nóminas</h3>
+  <md-list-item class="elemento">
+    <md-icon md-list-icon>&nbsp;</md-icon>
+    <md-icon md-list-icon>&nbsp;</md-icon>
+    <md-icon md-list-icon>&nbsp;</md-icon>
+    <md-icon md-list-icon>&nbsp;</md-icon>
+
+    <div class="campo" >ID</div>
+    <div class="campo" >Descripción</div>
+    <div class="campo" >Inicio</div>
+    <div class="campo" >Termino</div>
+  </md-list-item>
+  <md-list-item  *ngFor="let dts of registros">
+  	<div class="nomina">
+  		<div class="elemento">
+		  	<md-icon class="btnl" md-list-icon (click)="eliminar(dts.id)">delete_forever</md-icon>
+        <md-icon class="btnl" md-list-icon (click)="elimin(dts.id)">lock</md-icon>
+        <md-icon class="btnl" md-list-icon (click)="calcularNomina(dts.id)">update</md-icon>
+		  		<md-icon class="btnl" md-list-icon *ngIf="dts.edo==0" (click)="expander(dts)">expand_more</md-icon>
+		  		<md-icon class="btnl" md-list-icon *ngIf="dts.edo==1" (click)="contraer(dts)">expand_less</md-icon>
+		    <div class="campo">{{dts.id}}</div>
+		    <div class="campo" >{{dts.descripcion}}</div>
+		    <div class="campo" >{{dts.inicio}}</div>
+		    <div class="campo" >{{dts.termino}}</div>
+	  	</div>
+	  	<app-detalle-nomina *ngIf="dts.edo==1" [id_nom]="dts.id"></app-detalle-nomina>
+  	</div>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>

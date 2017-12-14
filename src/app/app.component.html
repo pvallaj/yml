@@ -1,0 +1,42 @@
+<div class="container pa-0">
+  <div class="row encabezado" >
+    <div class="cs1">
+      <!--img src="assets/sirhLogo.png" class="logo"-->
+    </div>
+    <div class="cs2">
+      <h3>{{titulo}} </h3>
+      <h3>{{subtitulo}} </h3>
+    </div>
+    <div class="cs3">
+     
+    </div>
+    <button md-mini-fab class="fab" (click)="ADMenu()" *ngIf="!mnActivo" >
+      <md-icon>menu</md-icon>
+    </button> 
+  </div> 
+</div>
+<md-sidenav-container >
+  <md-sidenav #sidenav mode="side" [opened]="mnActivo" class="menusn">
+     <registro-usuario tipo="registro" ></registro-usuario> 
+     <div class="listaopt" *ngIf="su.estadoSesion=='conectado'">
+       <div class="elemento" *ngFor="let ii of opciones">
+        <button md-mini-fab  (click)="accionMenu(ii.accion)" 
+          mdTooltip="{{ii.tt}}" [mdTooltipPosition]="'right'">
+            <md-icon>{{ii.icono}}</md-icon> 
+        </button>   
+        {{ii.etiqueta}}
+       </div>
+     </div>
+     <registro-usuario tipo="cabecera"></registro-usuario>
+     <button md-mini-fab class="fab" (click)="ADMenu()" *ngIf="mnActivo">
+      <md-icon >keyboard_arrow_left</md-icon>
+     </button>
+  </md-sidenav>
+
+  <div class="container" >
+    <router-outlet></router-outlet>
+  </div>  
+</md-sidenav-container>
+
+
+

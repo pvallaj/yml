@@ -1,0 +1,47 @@
+<div class="campo">
+    <md-input-container  >
+      <input [disabled]="(modo=='revision')" mdInput [mdDatepicker]="pk1" placeholder="Inicio:" disabled="true" [(ngModel)]="fi" name="fecha" >
+      <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
+    </md-input-container>
+    <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
+</div>  
+<div class="campo">
+    <md-input-container  mdTooltip="">
+      <input [disabled]="(modo=='revision')" 
+          mdInput [mdDatepicker]="pk2" 
+          placeholder="Inicio:" 
+          (change)="cambioFecha()"
+           [(ngModel)]="ff" name="fecha" >
+      <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
+    </md-input-container>
+    <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
+</div>
+<md-list>
+  <h3 md-subheader>Confronta</h3>
+  <md-list-item class="elemento" *ngFor="let dts of registros">
+      <md-icon md-list-icon>date_range</md-icon>
+      <div class="c1">{{dts.id}}</div>
+      <div class="c2">{{dts.fecha}}</div>
+      <div class="c1">{{dts.gastos}}</div>
+      <div class="c1">{{dts.tarjeta}}</div>
+      <div class="c1">{{dts.propina}}</div>
+      <div class="c1">{{dts.calculado}}</div>
+      <div class="c1">
+        <div class="contado" *ngIf="!dts.editado">{{dts.contado}}</div>
+        <input mdInput *ngIf="dts.editado" placeholder="Contado:" [(ngModel)]="contado"  value="{{dts.contado}}">
+      </div>
+      <div class="c1">
+        <div class="contado" *ngIf="!dts.editado">{{dts.comentarios}}</div>
+        <input mdInput *ngIf="dts.editado" placeholder="Comentarios:" [(ngModel)]="comentarios" value="{{dts.comentarios}}">
+      </div>
+      <div class="c1">
+        <button md-mini-fab color="primary" (click)="editar(dts)" *ngIf="!dts.editado">
+          <md-icon class="md-24" aria-label="Example icon-button with a heart icon">edit</md-icon>
+        </button>
+        <button md-mini-fab color="primary" (click)="guardarregistro(dts)" *ngIf="dts.editado">
+          <md-icon class="md-24" aria-label="Example icon-button with a heart icon">save</md-icon>
+        </button>
+      </div>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>

@@ -1,0 +1,57 @@
+<form (ngSubmit)="enviar(frm)" #frm="ngForm">
+  <md-select placeholder="Tipo de carga" [(ngModel)]="tipo" name="carga" (change)="cambiaTipo()">
+    <md-option *ngFor="let t of tipos" [value]="t">
+      {{t.descripcion}}
+    </md-option>
+  </md-select>
+  <md-form-field class="datos">
+    <textarea mdInput  rows="5"  placeholder="proporcione las {{tipo.descripcion.toUpperCase()}} del día:" [(ngModel)]="datos" name="datos"></textarea>
+  </md-form-field>
+   <button md-raised-button color="primary">Cargar {{tipo.descripcion.toUpperCase()}}</button>
+</form>
+<div class="campo">
+    <md-input-container  >
+      <input  mdInput [mdDatepicker]="pk1" placeholder="Inicio:" [(ngModel)]="fi" name="fecha" >
+      <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
+    </md-input-container>
+    <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
+</div>  
+<div class="campo">
+    <md-input-container  mdTooltip="">
+      <input 
+          mdInput [mdDatepicker]="pk2" 
+          placeholder="Inicio:" 
+          (change)="cambioFecha()"
+           [(ngModel)]="ff" name="fecha" >
+      <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
+    </md-input-container>
+    <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
+</div>  
+<md-list>
+  <h3 md-subheader>Ventas</h3>
+  <md-list-item class="elemento">
+    <md-icon md-list-icon>date_range</md-icon>
+    <div class="campo">Fecha</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">Efectivo</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">Tarjeta</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">TOTAL</div>
+    <div class="campo" *ngIf="tipo.descripcion=='comisiones'">Comisiones</div>
+  </md-list-item>
+  <md-list-item class="elemento" *ngFor="let dts of registros">
+    <md-icon md-list-icon>date_range</md-icon>
+    <div class="campo">{{dts.fecha}}</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">{{dts.efectivo}}</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">{{dts.tarjeta}}</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">{{dts.total}}</div>
+    <div class="campo" *ngIf="tipo.descripcion=='comisiones'">{{dts.comisiones}}</div>
+  </md-list-item>
+  <md-list-item class="elemento" >
+    <md-icon md-list-icon>date_range</md-icon>
+    <div class="campo">Total</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">{{totalEfectivo}}</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">{{totalTarjeta}}</div>
+    <div class="campo" *ngIf="tipo.descripcion=='ventas'">{{total}}</div>
+    <div class="campo" *ngIf="tipo.descripcion=='comisiones'">{{totalComisiones}}</div>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>

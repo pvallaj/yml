@@ -1,0 +1,45 @@
+<!--button *ngIf="(su.estadoSesion=='conectado' && tipo=='cabecera')" 
+		type="button" 
+		class="btn btn-primary finSession" 
+		(click)="salir(content)">
+	{{su.usuario}}-{{su.nombreUsuario}} (Salir) 
+</button-->
+<div class="element" *ngIf="(su.estadoSesion=='conectado' && tipo=='cabecera')">
+	<button md-mini-fab class="fab" (click)="salir(content)" tooltip="Salir"  >
+      <md-icon>exit_to_app</md-icon> 
+	</button> 	
+	Salir
+</div>
+
+<div class="formaUsuario" *ngIf="(su.estadoSesion!='conectado' && tipo=='registro')">
+	<div class="modal-header">
+    	<h4 class="modal-title">Solo personal autorizado.  </h4>
+  	</div>
+  	<form (ngSubmit)="enviarDatos()" #registroForma="ngForm" class="forma">
+  		<div class="modal-body">
+	      	<div class="input-group form-group">
+			    <input type="text" 
+			    		id="usuario" required [(ngModel)]="usuario" name="usuario" 
+			    		class="form-control input_datos"  
+			    		placeholder="Nombre de Usuario"  
+			    		aria-describedby="basic-addon3" 
+			    		pattern="^[a-z0-9_-]{2,15}$" >
+			</div>
+
+	    	<div class="input-group form-group">
+			  <input type="password" id="password" required 
+			  			[(ngModel)]="password" name="password" 
+			  			class="form-control input_datos"  
+			  			placeholder="Contraseña" 
+			  			aria-describedby="basic-addon3" >
+			</div>
+	  	</div>
+	  	<div *ngIf="su.mensajeError!=''" class="alert alert-danger">
+	  		{{su.mensajeError}}
+	  	</div>
+	  	<div class="modal-footer">
+	  		<button type="button" class="btn btn-primary btn_accion" 
+	  			[disabled]="!registroForma.form.valid" (click)="registrarUsuario()">Acceder</button>
+	  	  	</div>
+  	</form>
+</div>	  	

@@ -1,0 +1,13 @@
+<md-list>
+  <md-list-item class="elemento">
+  	<div class="nombre" >nombre</div>
+    <div class="descripcion" >concepto</div>
+    <div class="campo" >monto</div>
+  </md-list-item>
+  <md-list-item [className]="estiloElemento(dts.no_empl)" *ngFor="let dts of registros">
+  	<div class="nombre" >{{dts.paterno}} {{dts.materno}} {{dts.nombre}}</div>
+    <div class="descripcion" >{{dts.descripcion}}</div>
+    <div class="campo" >{{dts.valor}}</div>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>

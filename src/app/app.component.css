@@ -1,0 +1,61 @@
+md-sidenav-container{
+    background-color: white;
+    height: 90vh;
+    width: 100vw;
+}
+md-sidenav{
+    width: 250px;
+    padding: 5px;
+}
+.fab{
+  z-index: 100;
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+}
+
+
+.logo-tsi{
+	width: 190px;
+}
+.container{
+	width: 100%;
+    padding: 0 0;
+}
+.encabezado{
+	background: rgba(255,255,255,1);
+  border-bottom: 1px solid gray;
+  padding-bottom: 5px;
+  display: flex;
+  width: 100%;
+  //border: 1px solid red;
+  justify-content: space-between;
+  margin: 1px 0px;
+}
+h3{
+	margin: 5px 0;
+    text-align: center;
+    font-weight: bold;
+    color: #0074ff;
+    text-shadow: 0px 0px 1px black;
+}
+.cs1, .cs3{
+  min-width: 100px;
+  flex-grow: 1;
+}
+.cs2{
+  min-width: 100px;
+  flex-grow: 1;
+}
+.cs1, .cs2, .cs3{
+  //border: 1px dotted black;
+}
+
+.listaopt{
+    display: flex;
+    flex-direction: column;
+    margin: 5px 2px;
+}
+.elemento{
+  margin: 5px 0;
+}

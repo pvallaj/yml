@@ -1,0 +1,63 @@
+<div class="row">
+	
+	<div class="campo">
+	    <md-input-container  >
+	      <input  mdInput [mdDatepicker]="pk1" placeholder="Inicio:"  [(ngModel)]="fi" name="fecha" >
+	      <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
+	    </md-input-container>
+	    <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
+	</div>
+	<div class="campo">
+	    <md-input-container  mdTooltip="">
+	      <input
+	          mdInput [mdDatepicker]="pk2"
+	          placeholder="Termino:"
+	          (change)="cambioFecha()"
+	           [(ngModel)]="ff" name="fecha" >
+	      <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
+	    </md-input-container>
+	    <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
+	</div>
+</div>
+<form #f="ngForm" >
+<div class="row">
+	<div class="campo">
+	    <md-input-container  >
+	      <input  mdInput [mdDatepicker]="pk3" placeholder="Inicio:"  [(ngModel)]="fg" name="fg" >
+	      <md-datepicker-toggle  mdSuffix [for]="pk3"></md-datepicker-toggle>
+	    </md-input-container>
+	    <md-datepicker #pk3 ></md-datepicker>
+	</div>
+	<div class="campo">
+		<md-input-container  mdTooltip="">
+	    <input mdInput name="monto" required [(ngModel)]="uno" maxlength="15" placeholder="Monto" type="number" >
+		</md-input-container>
+	</div>
+	<div class="campo">
+		<md-input-container  mdTooltip="">
+	    <input mdInput name="concepto" required  [(ngModel)]="dos" maxlength="15" placeholder="Concepto" >
+		</md-input-container>
+	</div>
+	<div class="campo">
+		<button [disabled]="f.invalid" md-raised-button color="primary" (click)="agregarGasto(f.value)">Agregar</button>
+	</div>
+</div>
+</form>
+<md-list>
+  <h3 md-subheader>Gastos</h3>
+  <md-list-item class="elemento">
+    <md-icon md-list-icon>delete_forever</md-icon>
+    <div class="campo" >Fecha</div>
+    <div class="campo" >monto</div>
+    <div class="campo" >descripcion</div>
+  </md-list-item>
+  <md-list-item class="elemento" *ngFor="let dts of registros">
+  	<button md-mini-fab color="warn" (click)="borrarGasto(dts)">
+  		<md-icon md-list-icon>delete_forever</md-icon>
+  	</button>
+    <div class="campo">{{dts.fecha}}</div>
+    <div class="campo" >{{dts.monto}}</div>
+    <div class="campo" >{{dts.descripcion}}</div>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>
