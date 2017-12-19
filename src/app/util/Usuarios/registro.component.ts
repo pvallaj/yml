@@ -3,7 +3,7 @@ import { Router }             from '@angular/router';
 import 'rxjs/add/operator/catch';
 
 import { SesionUsuario }      from './SesionUsuario.service';
-
+import { AuthService } from './auth-service.service';
 
 @Component({
   moduleId:   module.id,
@@ -20,7 +20,7 @@ export class Registro {
   usuario:string="";
   password:string="";
 
-  constructor( private ru:Router, private su:SesionUsuario) {
+  constructor( private ru:Router, private su:SesionUsuario, private auth:AuthService) {
       console.log("llegamos al registro");
   }
   registrarUsuario() { 
@@ -38,11 +38,19 @@ export class Registro {
   }
   
   salir() { 
-    this.su.cerrarSesion().subscribe(data=>this.salir_r(data), err=>this.registroError(err));
+    //this.su.cerrarSesion().subscribe(data=>this.salir_r(data), err=>this.registroError(err));
+    this.auth.logout();
   }
   salir_r(r){
     console.log("Cerrar sesion con exito: ");
     this.ru.navigate(['inicio']); 
+  }
+
+
+
+  ////--------------------------
+  autenticar(){
+    this.auth.login();
   }
   
 }

@@ -10,6 +10,7 @@ import {Observable} from 'rxjs/Observable';
 
 import 'rxjs/add/observable/of';
 
+
 @Component({
   selector: 'app-gastos',
   templateUrl: './gastos.component.html',

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SesionUsuario } from './util/Usuarios/SesionUsuario.service';
 import { Router } from '@angular/router';
+import { AuthService } from './util/Usuarios/auth-service.service';
 
 @Component({
   selector: 'app-root',
@@ -19,8 +20,13 @@ export class AppComponent {
     {etiqueta:'Nominas',   tt:'Calculo de nómina semanl',       accion:'nomina',      icono:'local_atm'}
   ];
   constructor(public su: SesionUsuario,
-  			  private ru:Router) { 
+  			  private ru:Router,
+          private auth:AuthService) { 
+    auth.handleAuthentication();
+
   	console.log('--------------');
+    console.log(auth.isAuthenticated());
+    console.log('--------------');
   	console.log(su);
   } 
 

@@ -18,7 +18,7 @@
 <md-sidenav-container >
   <md-sidenav #sidenav mode="side" [opened]="mnActivo" class="menusn">
      <registro-usuario tipo="registro" ></registro-usuario> 
-     <div class="listaopt" *ngIf="su.estadoSesion=='conectado'">
+     <div class="listaopt" *ngIf="auth.isAuthenticated()">
        <div class="elemento" *ngFor="let ii of opciones">
         <button md-mini-fab  (click)="accionMenu(ii.accion)" 
           mdTooltip="{{ii.tt}}" [mdTooltipPosition]="'right'">

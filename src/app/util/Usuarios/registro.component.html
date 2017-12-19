@@ -4,14 +4,14 @@
 		(click)="salir(content)">
 	{{su.usuario}}-{{su.nombreUsuario}} (Salir) 
 </button-->
-<div class="element" *ngIf="(su.estadoSesion=='conectado' && tipo=='cabecera')">
-	<button md-mini-fab class="fab" (click)="salir(content)" tooltip="Salir"  >
+<div class="element" *ngIf="(auth.isAuthenticated() && tipo=='cabecera')">
+	<button md-mini-fab class="fab" (click)="salir()" tooltip="Salir"  >
       <md-icon>exit_to_app</md-icon> 
 	</button> 	
 	Salir
 </div>
 
-<div class="formaUsuario" *ngIf="(su.estadoSesion!='conectado' && tipo=='registro')">
+<div class="formaUsuario" *ngIf="(!auth.isAuthenticated() && tipo=='registro')">
 	<div class="modal-header">
     	<h4 class="modal-title">Solo personal autorizado.  </h4>
   	</div>
@@ -40,6 +40,7 @@
 	  	<div class="modal-footer">
 	  		<button type="button" class="btn btn-primary btn_accion" 
 	  			[disabled]="!registroForma.form.valid" (click)="registrarUsuario()">Acceder</button>
-	  	  	</div>
+	  		<button type="button" class="btn btn-primary btn_accion" (click)="autenticar()" >Con Google</button>
+	  	</div>
   	</form>
 </div>	  	

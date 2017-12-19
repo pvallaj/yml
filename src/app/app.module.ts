@@ -31,7 +31,10 @@ import { PedidosComponent }       from './inventario/pedidos/pedidos.component';
 import { CargaComponent }         from './ventas/carga/carga.component';
 import { ConfrtDiaComponent }     from './ventas/confrt-dia/confrt-dia.component';
 import { GastosComponent }        from './gastos/gastos.component';
-import { DetalleComponent } from './nomina/detalle/detalle.component';
+import { DetalleComponent }       from './nomina/detalle/detalle.component';
+
+import { AuthService }            from './util/Usuarios/auth-service.service';
+import { Privada }                from './util/Usuarios/seccion-privada';
 
 @NgModule({
   declarations: [
@@ -47,16 +50,16 @@ import { DetalleComponent } from './nomina/detalle/detalle.component';
     BrowserAnimationsModule,
     HttpModule, BrowserModule, 	NgbModule.forRoot(), 	FormsModule, 
     RouterModule.forRoot([
-            { path: '',                  component: ValSessionComponent  },
+            { path: '',                  component: InicioComponent  },
             { path: 'inicio',            component: InicioComponent },
-            { path: 'nomina',            component: NominaComponent  },
-            { path: 'pedidos',           component: PedidosComponent  },
-            { path: 'carga',             component: CargaComponent  },
-            { path: 'confronta',         component: ConfrtDiaComponent  },
-            { path: 'gastos',            component: GastosComponent  }
+            { path: 'nomina',            component: NominaComponent ,   canActivate:[Privada]},
+            { path: 'pedidos',           component: PedidosComponent,   canActivate:[Privada]  },
+            { path: 'carga',             component: CargaComponent,     canActivate:[Privada]  },
+            { path: 'confronta',         component: ConfrtDiaComponent, canActivate:[Privada]  },
+            { path: 'gastos',            component: GastosComponent,    canActivate:[Privada]  }
           ])
   ],
-  providers: [ SesionUsuario, Coneccion, UtilS],
+  providers: [ AuthService, SesionUsuario, Coneccion, UtilS, Privada],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
