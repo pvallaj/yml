@@ -12,8 +12,11 @@ import { MdNativeDateModule,
          MatTableModule,
          MdDatepickerModule,
          MatInputModule,
-         MdTooltipModule
+         MdTooltipModule,
+         MdTableModule,
+         MdPaginatorModule
          }      from '@angular/material';
+import { MatTable }                from '@angular/material/table';
 import { BrowserAnimationsModule}  from '@angular/platform-browser/animations';
 
 import { Registro } 			        from './util/Usuarios/registro.component';
@@ -35,7 +38,7 @@ import { DetalleComponent }       from './nomina/detalle/detalle.component';
 
 import { AuthService }            from './util/Usuarios/auth-service.service';
 import { Privada }                from './util/Usuarios/seccion-privada';
-
+//Estor agregando un comentario.
 @NgModule({
   declarations: [
     AppComponent
@@ -46,7 +49,8 @@ import { Privada }                from './util/Usuarios/seccion-privada';
     ,PedidosComponent, CargaComponent, ConfrtDiaComponent, GastosComponent, DetalleComponent
   ],
   imports: [
-    MdSidenavModule, MdIconModule, MdButtonModule, MdTooltipModule, MatInputModule, MdDatepickerModule, MdNativeDateModule, MdSelectModule, MatTableModule,
+    MdSidenavModule, MdIconModule, MdButtonModule, MdTooltipModule, MatInputModule, MdDatepickerModule, MdNativeDateModule, MdSelectModule,
+    MatTableModule, MdPaginatorModule,
     BrowserAnimationsModule,
     HttpModule, BrowserModule, 	NgbModule.forRoot(), 	FormsModule, 
     RouterModule.forRoot([

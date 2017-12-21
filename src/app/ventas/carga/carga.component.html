@@ -27,7 +27,40 @@
     </md-input-container>
     <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
 </div>  
-<md-list>
+<div class="example-container mat-elevation-z8">
+  <md-table #table [dataSource]="registros">
+
+    <ng-container mdColumnDef="fecha">
+      <md-header-cell *mdHeaderCellDef> Fecha </md-header-cell>
+      <md-cell *mdCellDef="let element"> {{element.fecha}} </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="efectivo">
+      <md-header-cell *mdHeaderCellDef> Efectivo </md-header-cell>
+      <md-cell *mdCellDef="let element"> {{element.efectivo}} </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="tarjeta">
+      <md-header-cell *mdHeaderCellDef> Tarjeta </md-header-cell>
+      <md-cell *mdCellDef="let element"> {{element.tarjeta}} </md-cell>
+    </ng-container>
+
+    <ng-container mdColumnDef="total">
+      <md-header-cell *mdHeaderCellDef> Total </md-header-cell>
+      <md-cell *mdCellDef="let element"> {{element.total}} </md-cell>
+    </ng-container>
+
+    <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+    <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+  </md-table>
+  <md-paginator #paginator
+                [length]="registros.registros.length"
+                [pageIndex]="0"
+                [pageSize]="7"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+  </md-paginator>
+</div>
+<!--md-list>
   <h3 md-subheader>Ventas</h3>
   <md-list-item class="elemento">
     <md-icon md-list-icon>date_range</md-icon>
@@ -54,4 +87,4 @@
     <div class="campo" *ngIf="tipo.descripcion=='comisiones'">{{totalComisiones}}</div>
   </md-list-item>
   <md-divider></md-divider>
-</md-list>
+</md-list-->

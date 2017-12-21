@@ -5,12 +5,17 @@ import { Component
 import { Coneccion }      from '../../util/Coneccion.service';
 import { UtilS }      from '../../util/util-s.service';
 
+import {DataSource} from '@angular/cdk/collections';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+
 @Component({
   selector: 'app-carga',
   templateUrl: './carga.component.html',
   styleUrls: ['./carga.component.css']
 })
 export class CargaComponent implements OnInit {
+  displayedColumns = ['fecha','efectivo', 'tarjeta', 'total'];
   tipo:any;
   tipos=[{id:1, descripcion:'ventas'},{id:2, descripcion:'comisiones'}];
   datos:string="";
@@ -27,9 +32,9 @@ export class CargaComponent implements OnInit {
 
     this.fi=new Date(hoy.getFullYear(), hoy.getMonth(), 1);
     this.ff=new Date(hoy.getFullYear(), hoy.getMonth()+1, 0);
-
+    this.registros=new YamelDataSource(cnx);
   }
-  registros:any; 
+  registros:YamelDataSource; 
 
   totalizar(){
     this.totalEfectivo=0;
@@ -37,7 +42,7 @@ export class CargaComponent implements OnInit {
     this.total=0;
     this.totalComisiones=0;
  
-    for(let reg of this.registros){
+    /*for(let reg of this.registros){
       if(reg.comisiones){
         this.totalComisiones+=parseFloat(reg.comisiones);
       }else{
@@ -45,7 +50,7 @@ export class CargaComponent implements OnInit {
         this.totalTarjeta+=parseFloat(reg.tarjeta);
         this.total+=parseFloat(reg.total);
       }
-    }
+    }*/
   }
 
   ngOnInit() {
@@ -72,7 +77,11 @@ export class CargaComponent implements OnInit {
   
   obtConcentradoResp(resp){
     console.log(resp);
-    this.registros=resp.datos;
+    if(!this.registros)
+      this.registros=new YamelDataSource(resp.datos);
+    else
+      this.registros.actDatos(resp.datos);
+    this.registros.checkar();
     this.totalizar();
   }
 
@@ -105,4 +114,53 @@ export class CargaComponent implements OnInit {
     console.log(ru);
   }
 
+}
+
+export interface Carga {
+  fecha:    string;
+  efectivo: number;
+  tarjeta:  number;
+  total:    number;
+}
+
+export class YamelDataSource extends DataSource<any> {
+
+  public registros:Carga[]=[];
+  constructor(private cnx:Coneccion) {
+    super();
+    //this.registros=regs;
+  }
+
+  /** Connect function called by the table to retrieve one stream containing the data to render. */
+  connect(): Observable<Carga[]> {
+    return this.cnx.ejecutar({
+        accion:'2:1',
+        fi:'2017-12-01',
+        ff:'2017-12-31'
+      });
+  }
+
+  actDatos(regs:any){
+    //this.registros=regs; 
+    if(regs){
+      for(let u of regs){
+         var t:Carga={
+              fecha:    "",
+              efectivo: 0,
+              tarjeta:  0,
+              total:    0};
+         t.efectivo=u.efectivo;
+         t.fecha=u.fecha;
+         t.tarjeta=u.tarjeta;
+         t.total=u.total;
+         this.registros.push(t);
+      }
+    }
+  }
+  checkar(){
+    console.log('----------------------------');
+    console.log(this.registros);
+    console.log('----------------------------');
+  }
+  disconnect() {}
 }
