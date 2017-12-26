@@ -12,11 +12,8 @@ import { MdNativeDateModule,
          MatTableModule,
          MdDatepickerModule,
          MatInputModule,
-         MdTooltipModule,
-         MdTableModule,
-         MdPaginatorModule
+         MdTooltipModule
          }      from '@angular/material';
-import { MatTable }                from '@angular/material/table';
 import { BrowserAnimationsModule}  from '@angular/platform-browser/animations';
 
 import { Registro } 			        from './util/Usuarios/registro.component';
@@ -50,7 +47,6 @@ import { Privada }                from './util/Usuarios/seccion-privada';
   ],
   imports: [
     MdSidenavModule, MdIconModule, MdButtonModule, MdTooltipModule, MatInputModule, MdDatepickerModule, MdNativeDateModule, MdSelectModule,
-    MatTableModule, MdPaginatorModule,
     BrowserAnimationsModule,
     HttpModule, BrowserModule, 	NgbModule.forRoot(), 	FormsModule, 
     RouterModule.forRoot([

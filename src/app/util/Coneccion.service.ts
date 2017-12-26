@@ -58,7 +58,8 @@ export class Coneccion{
 
   private respuesta(data:Response){
     let r=data.json();
-    return r.datos;
+    //return r.datos;
+    return r;
   }
 
   private error (error: any) {

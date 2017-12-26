@@ -5,9 +5,7 @@ import { Component
 import { Coneccion }      from '../../util/Coneccion.service';
 import { UtilS }      from '../../util/util-s.service';
 
-import {DataSource} from '@angular/cdk/collections';
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+
 
 @Component({
   selector: 'app-carga',
@@ -15,7 +13,6 @@ import 'rxjs/add/observable/of';
   styleUrls: ['./carga.component.css']
 })
 export class CargaComponent implements OnInit {
-  displayedColumns = ['fecha','efectivo', 'tarjeta', 'total'];
   tipo:any;
   tipos=[{id:1, descripcion:'ventas'},{id:2, descripcion:'comisiones'}];
   datos:string="";
@@ -23,6 +20,8 @@ export class CargaComponent implements OnInit {
   totalTarjeta:number=0;
   total:number=0;
   totalComisiones:number=0;
+  registros:any; 
+  cargando:boolean=false;
 
   fi:Date;
   ff:Date;
@@ -32,9 +31,8 @@ export class CargaComponent implements OnInit {
 
     this.fi=new Date(hoy.getFullYear(), hoy.getMonth(), 1);
     this.ff=new Date(hoy.getFullYear(), hoy.getMonth()+1, 0);
-    this.registros=new YamelDataSource(cnx);
   }
-  registros:YamelDataSource; 
+  
 
   totalizar(){
     this.totalEfectivo=0;
@@ -42,7 +40,7 @@ export class CargaComponent implements OnInit {
     this.total=0;
     this.totalComisiones=0;
  
-    /*for(let reg of this.registros){
+    for(let reg of this.registros){
       if(reg.comisiones){
         this.totalComisiones+=parseFloat(reg.comisiones);
       }else{
@@ -50,10 +48,11 @@ export class CargaComponent implements OnInit {
         this.totalTarjeta+=parseFloat(reg.tarjeta);
         this.total+=parseFloat(reg.total);
       }
-    }*/
+    }
   }
 
   ngOnInit() {
+    this.cargando=true;
     this.cnx.ejecutar({
         accion:(this.tipo.descripcion=='ventas')?'2:1':'3:1',
         fi:this.us.DateACadena(this.fi),
@@ -61,6 +60,7 @@ export class CargaComponent implements OnInit {
       }).subscribe((resp:any)=>this.obtConcentradoResp(resp),(ru:any)=>this.error(ru));
   }
   cambiaInicio(f:any){
+      this.cargando=true;
       this.cnx.ejecutar({
         accion:(this.tipo.descripcion=='ventas')?'2:1':'3:1',
         fi:this.us.DateACadena(f),
@@ -68,6 +68,7 @@ export class CargaComponent implements OnInit {
       }).subscribe((resp:any)=>this.obtConcentradoResp(resp),(ru:any)=>this.error(ru));
   }
   cambiaTermino(f:any){
+      this.cargando=true;
       this.cnx.ejecutar({
         accion:(this.tipo.descripcion=='ventas')?'2:1:':'3:1',
         fi:this.us.DateACadena(this.fi),
@@ -77,15 +78,13 @@ export class CargaComponent implements OnInit {
   
   obtConcentradoResp(resp){
     console.log(resp);
-    if(!this.registros)
-      this.registros=new YamelDataSource(resp.datos);
-    else
-      this.registros.actDatos(resp.datos);
-    this.registros.checkar();
+    this.registros=resp.datos;
     this.totalizar();
+    this.cargando=false;
   }
 
   enviar(dts){
+    this.cargando=true;
     console.log(this.datos);
     this.cnx.ejecutar({
       accion:(this.tipo.descripcion=='ventas')?'2:3':'3:3',
@@ -97,11 +96,13 @@ export class CargaComponent implements OnInit {
 
   cargaResp(resp){
     console.log(resp);
-    this.registros=resp.datos;
     this.datos="";
+    this.cargando=false;
   }
+
   cambiaTipo(){
     console.log("Se cambko el tipo");
+    this.cargando=true;
      this.cnx.ejecutar({
         accion:(this.tipo.descripcion=='ventas')?'2:1':'3:1',
         fi:this.us.DateACadena(this.fi),
@@ -116,51 +117,3 @@ export class CargaComponent implements OnInit {
 
 }
 
-export interface Carga {
-  fecha:    string;
-  efectivo: number;
-  tarjeta:  number;
-  total:    number;
-}
-
-export class YamelDataSource extends DataSource<any> {
-
-  public registros:Carga[]=[];
-  constructor(private cnx:Coneccion) {
-    super();
-    //this.registros=regs;
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<Carga[]> {
-    return this.cnx.ejecutar({
-        accion:'2:1',
-        fi:'2017-12-01',
-        ff:'2017-12-31'
-      });
-  }
-
-  actDatos(regs:any){
-    //this.registros=regs; 
-    if(regs){
-      for(let u of regs){
-         var t:Carga={
-              fecha:    "",
-              efectivo: 0,
-              tarjeta:  0,
-              total:    0};
-         t.efectivo=u.efectivo;
-         t.fecha=u.fecha;
-         t.tarjeta=u.tarjeta;
-         t.total=u.total;
-         this.registros.push(t);
-      }
-    }
-  }
-  checkar(){
-    console.log('----------------------------');
-    console.log(this.registros);
-    console.log('----------------------------');
-  }
-  disconnect() {}
-}

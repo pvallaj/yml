@@ -43,21 +43,28 @@
 	</div>
 </div>
 </form>
-<md-list>
-  <h3 md-subheader>Gastos</h3>
-  <md-list-item class="elemento">
-    <md-icon md-list-icon>delete_forever</md-icon>
-    <div class="campo" >Fecha</div>
-    <div class="campo" >monto</div>
-    <div class="campo" >descripcion</div>
-  </md-list-item>
-  <md-list-item class="elemento" *ngFor="let dts of registros">
-  	<button md-mini-fab color="warn" (click)="borrarGasto(dts)">
-  		<md-icon md-list-icon>delete_forever</md-icon>
-  	</button>
-    <div class="campo">{{dts.fecha}}</div>
-    <div class="campo" >{{dts.monto}}</div>
-    <div class="campo" >{{dts.descripcion}}</div>
-  </md-list-item>
-  <md-divider></md-divider>
-</md-list>
+
+
+<md-spinner *ngIf="cargando"></md-spinner>
+<table class="table table-striped table-sm table-bordered" *ngIf="!cargando">
+  <thead>
+    <tr>
+      <th>Borrar</th>
+      <th >Fecha</th>
+      <th >Monto</th>
+      <th >Descripción </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dts of registros;let i=index">
+      <th scope="row"> 
+        <button md-mini-fab color="warn" (click)="borrarGasto(dts)">
+          <md-icon md-list-icon>delete_forever</md-icon>
+        </button>
+      </th>
+      <td class="text-right">{{dts.fecha}}</td>
+      <td class="text-right">{{dts.monto| currency:'USD':true:'2.2-4'}}</td>
+      <td class="text-right">{{dts.descripcion }}</td>
+    </tr>
+  </tbody>
+</table>

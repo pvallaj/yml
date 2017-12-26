@@ -1,13 +1,17 @@
-<md-list>
-  <md-list-item class="elemento">
-  	<div class="nombre" >nombre</div>
-    <div class="descripcion" >concepto</div>
-    <div class="campo" >monto</div>
-  </md-list-item>
-  <md-list-item [className]="estiloElemento(dts.no_empl)" *ngFor="let dts of registros">
-  	<div class="nombre" >{{dts.paterno}} {{dts.materno}} {{dts.nombre}}</div>
-    <div class="descripcion" >{{dts.descripcion}}</div>
-    <div class="campo" >{{dts.valor}}</div>
-  </md-list-item>
-  <md-divider></md-divider>
-</md-list>
+
+<table class="table table-striped table-sm table-bordered" >
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Concepto</th>
+      <th>Monto</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dts of registros;let i=index">
+      <td class="text-left">{{dts.paterno}} {{dts.materno}} {{dts.nombre}}</td>
+      <td class="text-left">{{dts.descripcion }}</td>
+      <td class="text-right">{{dts.valor | currency:'USD':true:'2.2-4' }}</td>
+    </tr>
+  </tbody>
+</table>

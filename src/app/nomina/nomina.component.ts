@@ -12,7 +12,8 @@ export class NominaComponent implements OnInit {
   fi:Date;
   ff:Date;
   descripcion:string;
-
+  verdetalle=false;
+  id_detalle=0;
   
   registros:any; 
 
@@ -66,11 +67,13 @@ export class NominaComponent implements OnInit {
   }
 
   expander(dts:any){
-    dts.edo=1;
+    this.verdetalle=true;
+    this.id_detalle=dts.id;
     console.log(dts);
   }
   contraer(dts:any){
-    dts.edo=0;
+    this.verdetalle=false;
+    this.id_detalle=0;
     console.log(dts); 
   }
 
