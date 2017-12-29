@@ -18,17 +18,20 @@ export class PedidosComponent implements OnInit {
     middle: false,
     right: false
   };
-  registros:any; 
+  registros:any;
+  detalle:any; 
+  verDetalleSol:boolean=false;
+  cargando:boolean=false;
 
   regtmp:{fecha:string,monto:number,descripcion:string, id:number};
   constructor(private cnx:Coneccion, private us:UtilS) {
     let hoy:Date=new Date();
-    this.fi=new Date(hoy.getFullYear(), hoy.getMonth(), 1);
+    this.fi=new Date(hoy.getFullYear(), 0, 1);
     this.ff=new Date(hoy.getFullYear(), hoy.getMonth()+1, 0);
   }
 
-  
   ngOnInit() {
+    this.cargando=true;
     this.cnx.ejecutar({
       accion:'7:1',
        fi:this.us.DateACadena(this.fi),
@@ -36,6 +39,7 @@ export class PedidosComponent implements OnInit {
     }).subscribe((resp:any)=>this.obtNominasResp(resp),(ru:any)=>this.error(ru));
   }
   cambiaInicio(f:any){
+      this.cargando=true;
       this.cnx.ejecutar({
         accion:'7:1',
         fi:this.us.DateACadena(f),
@@ -43,12 +47,34 @@ export class PedidosComponent implements OnInit {
       }).subscribe((resp:any)=>this.obtNominasResp(resp),(ru:any)=>this.error(ru));
   }
   cambiaTermino(f:any){
+      this.cargando=true;
       this.cnx.ejecutar({
         accion:'7:1',
         fi:this.us.DateACadena(this.fi),
         ff:this.us.DateACadena(f),
       }).subscribe((resp:any)=>this.obtNominasResp(resp),(ru:any)=>this.error(ru));
   }
+
+  cargaDetalle(p_id:number){
+      this.cargando=true;
+      this.cnx.ejecutar({
+        accion:'7:4',
+        id:p_id
+      }).subscribe((resp:any)=>this.obtDetalleResp(resp),(ru:any)=>this.error(ru));
+
+  }
+
+  obtDetalleResp(resp){
+    this.cargando=false;
+    console.log(resp);
+    this.detalle=resp.datos;
+    this.verDetalleSol=true;
+  }
+
+
+
+
+
   eliminar(id:number){
      this.regtmp={fecha:'', descripcion:'', monto:0, id:id};
      this.cnx.ejecutar({
@@ -57,6 +83,7 @@ export class PedidosComponent implements OnInit {
       }).subscribe((resp:any)=>this.eliminarNominasResp(resp),(ru:any)=>this.error(ru));
   }
   obtNominasResp(resp){
+    this.cargando=false;
     console.log(resp);
     this.registros=resp.datos;
     for(let r of this.registros) r.edo=0;

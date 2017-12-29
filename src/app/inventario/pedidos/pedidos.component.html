@@ -1,64 +1,81 @@
 
-<form #f="ngForm" >
-  <div class="row">
-    <div class="campoc col-6 col-sm-6 col-md-3">
-        <md-input-container  >
-          <input  mdInput [mdDatepicker]="pk1" placeholder="Inicio:"  [(ngModel)]="fi" name="fecha" >
-          <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
-        </md-input-container>
-        <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
-    </div>  
-    <div class="campoc col-6 col-sm-6 col-md-3">
-        <md-input-container  mdTooltip="">
-          <input 
-              mdInput [mdDatepicker]="pk2" 
-              placeholder="Termino:" 
-              (change)="cambioFecha()"
-               [(ngModel)]="ff" name="fecha" >
-          <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
-        </md-input-container>
-        <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
-    </div> 
-    <div class="campoc col-6 col-sm-6 col-md-3">
-      <md-input-container  mdTooltip="">
-        <input mdInput name="descripcion" required [(ngModel)]="descripcion" maxlength="200" placeholder="Descripcón"  >
-      </md-input-container>
-    </div>
-    <div class="campoc  col-6 col-sm-6 col-md-3">
-      <button [disabled]="f.invalid" md-raised-button color="primary" (click)="agregarNomina(f.value)">Agregar</button>
-    </div>
-  </div> 
+<div class="row">
+    <form #f="ngForm" >
+        <div class=" col-sm-2 ">
+            <md-input-container  >
+              <input  mdInput [mdDatepicker]="pk1" placeholder="Inicio:"  [(ngModel)]="fi" name="fecha" >
+              <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
+            </md-input-container>
+            <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
+        </div>
+        <div class=" col-sm-2 ">
+            <md-input-container  mdTooltip="">
+              <input
+                  mdInput [mdDatepicker]="pk2"
+                  placeholder="Termino:"
+                  (change)="cambioFecha()"
+                   [(ngModel)]="ff" name="fecha" >
+              <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
+            </md-input-container>
+            <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
+        </div>
+        <div class=" col-sm-2 ">
+          <md-input-container  mdTooltip="">
+            <input mdInput name="descripcion" required [(ngModel)]="descripcion" maxlength="200" placeholder="Descripcón"  >
+          </md-input-container>
+        </div>
+        <div class="  col-sm-2 ">
+          <button [disabled]="f.invalid" md-raised-button color="primary" (click)="agregarNomina(f.value)">Agregar</button>
+        </div>
+    </form>
+</div>
 
-</form>
-
-<md-list>
-  <h3 md-subheader>Pedidos</h3>
-  <md-list-item class="elemento">
-    <md-icon md-list-icon>&nbsp;</md-icon>
-    <md-icon md-list-icon>&nbsp;</md-icon>
-    <md-icon md-list-icon>&nbsp;</md-icon>
-    <md-icon md-list-icon>&nbsp;</md-icon>
-
-    <div class="campo" >ID</div>
-    <div class="campo" >Descripción</div>
-    <div class="campo" >Inicio</div>
-    <div class="campo" >Termino</div>
-  </md-list-item>
-  <md-list-item  *ngFor="let dts of registros">
-    <div class="nomina">
-      <div class="elemento">
-        <md-icon class="btnl" md-list-icon (click)="eliminar(dts.id)">delete_forever</md-icon>
+<md-spinner *ngIf="cargando"></md-spinner>
+<table class="table table-striped table-sm table-bordered" *ngIf="!cargando && !verDetalleSol">
+  <thead>
+    <tr>
+      <th >* </th>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>inicio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dts of registros;let i=index">
+      <th scope="row">
+        <md-icon class="btnl" md-list-icon (click)="cargaDetalle(dts.id)">details</md-icon>
         <md-icon class="btnl" md-list-icon (click)="elimin(dts.id)">lock</md-icon>
-        <md-icon class="btnl" md-list-icon (click)="calcularNomina(dts.id)">update</md-icon>
-          <md-icon class="btnl" md-list-icon *ngIf="dts.edo==0" (click)="expander(dts)">expand_more</md-icon>
-          <md-icon class="btnl" md-list-icon *ngIf="dts.edo==1" (click)="contraer(dts)">expand_less</md-icon>
-        <div class="campo">{{dts.id}}</div>
-        <div class="campo" >{{dts.descripcion}}</div>
-        <div class="campo" >{{dts.inicio}}</div>
-        <div class="campo" >{{dts.termino}}</div>
-      </div>
-      <app-detalle-nomina *ngIf="dts.edo==1" [id_nom]="dts.id"></app-detalle-nomina>
-    </div>
-  </md-list-item>
-  <md-divider></md-divider>
-</md-list>
+      </th>
+      <td class="text-right">{{dts.id}}</td>
+      <td class="text-left">{{dts.descripcion }}</td>
+      <td class="text-right">{{dts.inicio }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped table-sm table-bordered" *ngIf="!cargando && verDetalleSol">
+  <thead>
+    <tr>
+      <th >*</th>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>subtotal</th>
+      <th>IVA</th>
+      <th>TOTAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let dts of detalle;let i=index">
+      <td scope="row">
+        <md-icon class="btnl" md-list-icon >delete</md-icon>
+      </td>
+      <td class="text-left">{{dts.producto }}</td>
+      <td class="text-right">{{dts.cantidad }}</td>
+      <td class="text-right">{{dts.precio | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+      <td class="text-right">{{dts.precio*dts.cantidad | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+      <td class="text-right">{{dts.precio*dts.cantidad*0.16 | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+      <td class="text-right">{{dts.precio*dts.cantidad*1.16 | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+    </tr>
+  </tbody>
+</table>
