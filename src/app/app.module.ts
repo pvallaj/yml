@@ -35,6 +35,8 @@ import { DetalleComponent }       from './nomina/detalle/detalle.component';
 
 import { AuthService }            from './util/Usuarios/auth-service.service';
 import { Privada }                from './util/Usuarios/seccion-privada';
+
+import { CatalogosService }       from './util/catalogos.service';
 //Estor agregando un comentario.
 @NgModule({
   declarations: [
@@ -59,7 +61,7 @@ import { Privada }                from './util/Usuarios/seccion-privada';
             { path: 'gastos',            component: GastosComponent,    canActivate:[Privada]  }
           ])
   ],
-  providers: [ AuthService, SesionUsuario, Coneccion, UtilS, Privada],
+  providers: [ AuthService, SesionUsuario, Coneccion, UtilS, Privada, CatalogosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

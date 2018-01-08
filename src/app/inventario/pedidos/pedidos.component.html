@@ -1,34 +1,43 @@
 
-<div class="row">
-    <form #f="ngForm" >
-        <div class=" col-sm-2">
-            <md-input-container  >
-              <input  mdInput [mdDatepicker]="pk1" placeholder="Inicio:"  [(ngModel)]="fi" name="fecha" >
-              <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
-            </md-input-container>
-            <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
-        </div>
-        <div class=" col-sm-2 ">
-            <md-input-container  mdTooltip="">
-              <input
-                  mdInput [mdDatepicker]="pk2"
-                  placeholder="Termino:"
-                  (change)="cambioFecha()"
-                   [(ngModel)]="ff" name="fecha" >
-              <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
-            </md-input-container>
-            <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
-        </div>
-        <div class=" col-sm-2 ">
-          <md-input-container  mdTooltip="">
-            <input mdInput name="descripcion" required [(ngModel)]="descripcion" maxlength="200" placeholder="Descripcón"  >
-          </md-input-container>
-        </div>
-        <div class="  col-sm-2 ">
-          <button [disabled]="f.invalid" md-raised-button color="primary" (click)="agregarNomina(f.value)">Agregar</button>
-        </div>
-    </form>
+<div class="row" *ngIf="!verDetalleSol">
+  <div class="col-sm-4">
+        <md-input-container  >
+          <input  mdInput [mdDatepicker]="pk1" placeholder="Inicio:"  [(ngModel)]="fi" name="fecha" >
+          <md-datepicker-toggle  mdSuffix [for]="pk1"></md-datepicker-toggle>
+        </md-input-container>
+        <md-datepicker #pk1 (selectedChanged)="cambiaInicio($event)"></md-datepicker>
+    </div>
+    <div class=" col-sm-4 ">
+        <md-input-container  mdTooltip="">
+          <input
+              mdInput [mdDatepicker]="pk2"
+              placeholder="Termino:"
+              (change)="cambioFecha()"
+               [(ngModel)]="ff" name="fecha" >
+          <md-datepicker-toggle  mdSuffix [for]="pk2"></md-datepicker-toggle>
+        </md-input-container>
+        <md-datepicker #pk2 (selectedChanged)="cambiaTermino($event)"></md-datepicker>
+    </div>
 </div>
+    
+<form #f="ngForm" class="row" *ngIf="!verDetalleSol">
+    <div class="col-sm-4">
+        <md-input-container  >
+          <input  mdInput [mdDatepicker]="pk3" placeholder="Fecha de solicitud:"  [(ngModel)]="fp" name="fecha" >
+          <md-datepicker-toggle  mdSuffix [for]="pk3"></md-datepicker-toggle>
+        </md-input-container>
+        <md-datepicker #pk3 ></md-datepicker>
+    </div>
+    <div class=" col-sm-5 ">
+      <md-input-container  mdTooltip="">
+        <input mdInput name="descripcion" required [(ngModel)]="descripcion" maxlength="200" placeholder="Descripcón del pedido"  >
+      </md-input-container>
+    </div>
+    <div class="  col-sm-2 ">
+      <button [disabled]="f.invalid" md-raised-button color="primary" (click)="agregarPedido(f.value)">Agregar</button>
+    </div>
+</form>
+
 
 <md-spinner *ngIf="cargando"></md-spinner>
 <table class="table table-striped table-sm table-bordered" *ngIf="!cargando && !verDetalleSol">
@@ -43,15 +52,24 @@
   <tbody>
     <tr *ngFor="let dts of registros;let i=index">
       <th scope="row">
-        <md-icon class="btnl" md-list-icon (click)="cargaDetalle(dts.id)">details</md-icon>
-        <md-icon class="btnl" md-list-icon (click)="elimin(dts.id)">lock</md-icon>
+        <md-icon class="btnl" md-list-icon (click)="cargaDetalle(dts.id)">format_list_numbered</md-icon>
+        <md-icon class="btnl" md-list-icon (click)="eliminarPedido(dts.id)">delete</md-icon>
       </th>
       <td class="text-right">{{dts.id}}</td>
       <td class="text-left">{{dts.descripcion }}</td>
-      <td class="text-right">{{dts.inicio }}</td>
+      <td class="text-right">{{dts.solicitado }}</td>
     </tr>
   </tbody>
 </table>
+
+<div class="row" *ngIf="verDetalleSol">
+  <div class="col-sm-1">
+    <button  md-raised-button color="primary" (click)="regresar()">Regresar</button>
+  </div>
+  <div class="col-sm-1">
+    <button  md-raised-button color="primary" (click)="agregarProducto()">Agregar</button>
+  </div>
+</div>
 
 <table class="table table-striped table-sm table-bordered" *ngIf="!cargando && verDetalleSol">
   <thead>

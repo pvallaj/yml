@@ -42,7 +42,7 @@ export class CargaComponent implements OnInit {
     this.total=0;
     this.totalComisiones=0;
  
-    /*for(let reg of this.registros){
+    for(let reg of this.registros){
       if(reg.comisiones){
         this.totalComisiones+=parseFloat(reg.comisiones);
       }else{
@@ -50,7 +50,7 @@ export class CargaComponent implements OnInit {
         this.totalTarjeta+=parseFloat(reg.tarjeta);
         this.total+=parseFloat(reg.total);
       }
-    }*/
+    }
   }
 
   ngOnInit() {
@@ -95,6 +95,7 @@ export class CargaComponent implements OnInit {
     console.log(resp);
     this.registros=resp.datos;
     this.datos="";
+    this.totalizar();
   }
   cambiaTipo(){
     console.log("Se cambko el tipo");

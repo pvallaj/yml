@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Coneccion }    from '../../util/Coneccion.service';
-import { UtilS }        from '../../util/util-s.service';
+import { Coneccion }        from '../../util/Coneccion.service';
+import { UtilS }            from '../../util/util-s.service';
+import { CatalogosService } from '../../util/catalogos.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -11,6 +12,7 @@ import { UtilS }        from '../../util/util-s.service';
 export class PedidosComponent implements OnInit {
   fi:Date;
   ff:Date;
+  fp:Date;
   descripcion:string;
 
   model = {
@@ -23,13 +25,23 @@ export class PedidosComponent implements OnInit {
   verDetalleSol:boolean=false;
   cargando:boolean=false;
 
+
   regtmp:{fecha:string,monto:number,descripcion:string, id:number};
-  constructor(private cnx:Coneccion, private us:UtilS) {
+  constructor(private cnx:Coneccion, private us:UtilS, public cs:CatalogosService) {
     let hoy:Date=new Date();
     this.fi=new Date(hoy.getFullYear(), 0, 1);
     this.ff=new Date(hoy.getFullYear(), hoy.getMonth()+1, 0);
+    if(!this.cs.existe('productos')){
+       this.cnx.ejecutar({
+            accion:'7:6'
+        }).subscribe((resp:any)=>this.cargaProductosR(resp),(ru:any)=>this.error(ru));
+    }
   }
 
+  cargaProductosR(resp){
+     this.cs.agregarCatalogo('productos',resp.productos);
+     console.log('Productos cargados: '+resp.productos.length);
+  }
   ngOnInit() {
     this.cargando=true;
     this.cnx.ejecutar({
@@ -73,15 +85,11 @@ export class PedidosComponent implements OnInit {
 
 
 
-
-
-  eliminar(id:number){
-     this.regtmp={fecha:'', descripcion:'', monto:0, id:id};
-     this.cnx.ejecutar({
-        accion:'7:3',
-        id:id
-      }).subscribe((resp:any)=>this.eliminarNominasResp(resp),(ru:any)=>this.error(ru));
+  regresar(){
+     this.verDetalleSol=false;
   }
+
+ 
   obtNominasResp(resp){
     this.cargando=false;
     console.log(resp);
@@ -89,7 +97,14 @@ export class PedidosComponent implements OnInit {
     for(let r of this.registros) r.edo=0;
     
   }
-  eliminarNominasResp(resp){
+ eliminarPedido(id:number){
+     this.regtmp={fecha:'', descripcion:'', monto:0, id:id};
+     this.cnx.ejecutar({
+        accion:'7:3',
+        id:id
+      }).subscribe((resp:any)=>this.eliminarPedidoR(resp),(ru:any)=>this.error(ru));
+  }
+  eliminarPedidoR(resp){
     console.log(resp);
     if(resp.ce>0){
       this.registros=this.registros.filter(item => (item.id != this.regtmp.id ) );
@@ -105,38 +120,35 @@ export class PedidosComponent implements OnInit {
     console.log(dts); 
   }
 
-  agregarNomina(v:any){
+  agregarPedido(v:any){
      this.cnx.ejecutar({
         accion:'7:2',
         descripcion:this.descripcion,
-        fi:this.us.DateACadena(this.fi),
-        ff:this.us.DateACadena(this.ff),
-      }).subscribe((resp:any)=>this.agregarNominaR(resp),(ru:any)=>this.error(ru));
+        fp:this.us.DateACadena(this.fp),
+      }).subscribe((resp:any)=>this.agregarPedidoR(resp),(ru:any)=>this.error(ru));
+     this.fp=new Date;
+     this.descripcion='';
+
   }
-  agregarNominaR(r){
+  agregarPedidoR(r){
     console.log(r);
     if(r.ce>0){
       let tmp={
         id:r.id,
-        descripcion:this.descripcion,
-        inicio:this.us.DateACadena(this.fi),
-        termino:this.us.DateACadena(this.ff)
+        descripcion:r.descripcion,
+        solicitado:r.solicitado
       }
       this.registros.push(tmp);
     }
   }
 
-  calcularNomina(id:any){
-     this.cnx.ejecutar({
-        accion:'6:5',
-        id:id
-      }).subscribe((resp:any)=>this.calcularNominaR(resp),(ru:any)=>this.error(ru));
-  }
-  calcularNominaR(r){
-    console.log(r);
-    if(r.ce>0){
-      console.log("Nomina calculada con exito.");
-    }
+  /*
+  Detalle de pedido-------
+  */
+  detallePedido=[];
+  productos=[];
+  agregarProducto(){
+
   }
   error(ru){
     console.log(ru);

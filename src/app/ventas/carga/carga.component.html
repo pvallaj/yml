@@ -42,6 +42,7 @@
   <thead>
     <tr>
       <th>#</th>
+      <th>Fecha</th>
       <th *ngIf="tipo.descripcion=='ventas'">Efectivo</th>
       <th *ngIf="tipo.descripcion=='ventas'">Tarjeta</th>
       <th *ngIf="tipo.descripcion=='ventas'">Total</th>
@@ -51,13 +52,14 @@
   <tbody>
     <tr *ngFor="let dts of registros;let i=index">
       <th scope="row">{{i}}</th>
+      <td class="text-right">{{dts.fecha}}</td>
       <td *ngIf="tipo.descripcion=='ventas'" class="text-right">{{dts.efectivo | currency:'USD':true:'2.2-4'}}</td>
       <td *ngIf="tipo.descripcion=='ventas'" class="text-right">{{dts.tarjeta| currency:'USD':true:'2.2-4'}}</td>
       <td *ngIf="tipo.descripcion=='ventas'" class="text-right">{{dts.total| currency:'USD':true:'2.2-4'}}</td>
       <td *ngIf="tipo.descripcion=='comisiones'" class="text-right">{{dts.comisiones| currency:'USD':true:'2.2-4'}}</td>
     </tr>
     <tr class="table-success">
-      <th scope="row">Total</th>
+      <th scope="row" colspan="2" class="text-right">Total</th>
       <td *ngIf="tipo.descripcion=='ventas'" class="text-right">{{totalEfectivo| currency:'USD':true:'2.2-4'}}</td>
       <td *ngIf="tipo.descripcion=='ventas'" class="text-right">{{totalTarjeta| currency:'USD':true:'2.2-4'}}</td>
       <td *ngIf="tipo.descripcion=='ventas'" class="text-right">{{total| currency:'USD':true:'2.2-4'}}</td>
