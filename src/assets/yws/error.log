@@ -1,0 +1,72 @@
+idx: Iniciando
+idx: Parametros leidos:2
+idx: Iniciando
+idx: Parametros leidos:2
+idx: Iniciando
+idx: Parametros leidos:2
+idx: Iniciando
+idx: Parametros leidos:2
+idx: Iniciando
+idx: Parametros leidos:2
+idx: Iniciando
+idx: Parametros leidos:2
+idx: Iniciando
+idx: Parametros leidos:2
+Sub:3
+Se limpio el dia 2018-02-04
+idx: Iniciando
+idx: Parametros leidos:2
+Sub:3
+
+1->:[Sucursalfecha
+
+04 feb. 2018
+ Hoy 
+Tipo	Nombre	Estadística	Resumen
+Ventas	Clientes	Cantidad	Subtotal	Comisión	Total
+Producto	0010 VICCO NARANJA 70 G	1	1	1	420.00	- 42.00	378.00
+Producto	0011 FAIRY & LOVELY ROSA 50 G	1	1	1	390.00	- 39.00	351.00
+Producto	0080 VICCO WSO AMARILLO PEQUEÑA (20G)	1	1	1	290.00	- 29.00	261.00
+Servicio	0003 LIMPIEZA / MANTENIMIENTO	18	18	18	2,685.00	- 270.00	2,416.50
+Servicio	0006 DISEÑO DAMA	8	8	8	2,000.00	- 200.00	1,800.00
+Servicio	0011 BIGOTE	8	8	8	640.00	- 64.00	576.00
+Servicio	0012 PATILLAS (2)	1	1	1	150.00	- 15.00	135.00
+Servicio	0001 CARA COMPLETA C/BLEACH - CEJA	2	2	2	400.00	- 40.00	360.00
+Servicio	0001 CARA COMPLETA C/BLEACH - COMPLEMENTO DE CARA	2	2	2	800.00	- 80.00	720.00
+Servicio	0010 CARA COMPLETA C/HILO - CEJA	1	1	1	200.00	- 20.00	180.00
+Servicio	0010 CARA COMPLETA C/HILO - COMPLEMENTO DE CARA	1	1	1	400.00	- 40.00	360.00
+Subtotal Productos y Servicios  	44	44	44	8,375.00	- 839.00	7,537.50
+Bonificación	5TA VISITA	2	2	2	- 115.00	- 0.00	- 115.00
+Subtotal con Bonificaciones  	2	2	2	8,260.00	- 839.00	7,422.50
+Pago	EFECTIVO	25	25	25	5,680.00	- 0.00	5,680.00
+Pago	TARJETA	6	6	6	2,580.00	- 0.00	2,580.00
+Subtotal Pagos  	31	31	31	8,260.00	- 0.00	8,260.00
+Total  	31	31	31	8,260.00	- 839.00	7,421.00
+]
+2 Analizando->:[Sucursalfecha]
+2 Analizando->:[]
+2 Analizando->:[04 feb. 2018]
+2 se limpia la fecha->:[2018-02-04]Se limpio el dia 2018-02-04
+
+2 Analizando->:[ Hoy ]
+2 Analizando->:[Tipo	Nombre	Estadística	Resumen]
+2 Analizando->:[Ventas	Clientes	Cantidad	Subtotal	Comisión	Total]
+2 Analizando->:[Producto	0010 VICCO NARANJA 70 G	1	1	1	420.00	- 42.00	378.00]\n         VENTA [Producto] [0010 VICCO NARANJA 70 G] - [1] - [1] - [1] - [420.00] - [- 42.00] - [378.00] - <br>
+2 Analizando->:[Producto	0011 FAIRY & LOVELY ROSA 50 G	1	1	1	390.00	- 39.00	351.00]\n         VENTA [Producto] [0011 FAIRY & LOVELY ROSA 50 G] - [1] - [1] - [1] - [390.00] - [- 39.00] - [351.00] - <br>
+2 Analizando->:[Producto	0080 VICCO WSO AMARILLO PEQUEÑA (20G)	1	1	1	290.00	- 29.00	261.00]\n         VENTA [Producto] [0080 VICCO WSO AMARILLO PEQUEÑA (20G)] - [1] - [1] - [1] - [290.00] - [- 29.00] - [261.00] - <br>
+2 Analizando->:[Servicio	0003 LIMPIEZA / MANTENIMIENTO	18	18	18	2,685.00	- 270.00	2,416.50]\n         VENTA [Servicio] [0003 LIMPIEZA / MANTENIMIENTO] - [18] - [18] - [18] - [2685.00] - [- 270.00] - [2416.50] - <br>
+2 Analizando->:[Servicio	0006 DISEÑO DAMA	8	8	8	2,000.00	- 200.00	1,800.00]\n         VENTA [Servicio] [0006 DISEÑO DAMA] - [8] - [8] - [8] - [2000.00] - [- 200.00] - [1800.00] - <br>
+2 Analizando->:[Servicio	0011 BIGOTE	8	8	8	640.00	- 64.00	576.00]\n         VENTA [Servicio] [0011 BIGOTE] - [8] - [8] - [8] - [640.00] - [- 64.00] - [576.00] - <br>
+2 Analizando->:[Servicio	0012 PATILLAS (2)	1	1	1	150.00	- 15.00	135.00]\n         VENTA [Servicio] [0012 PATILLAS (2)] - [1] - [1] - [1] - [150.00] - [- 15.00] - [135.00] - <br>
+2 Analizando->:[Servicio	0001 CARA COMPLETA C/BLEACH - CEJA	2	2	2	400.00	- 40.00	360.00]\n         VENTA [Servicio] [0001 CARA COMPLETA C/BLEACH - CEJA] - [2] - [2] - [2] - [400.00] - [- 40.00] - [360.00] - <br>
+2 Analizando->:[Servicio	0001 CARA COMPLETA C/BLEACH - COMPLEMENTO DE CARA	2	2	2	800.00	- 80.00	720.00]\n         VENTA [Servicio] [0001 CARA COMPLETA C/BLEACH - COMPLEMENTO DE CARA] - [2] - [2] - [2] - [800.00] - [- 80.00] - [720.00] - <br>
+2 Analizando->:[Servicio	0010 CARA COMPLETA C/HILO - CEJA	1	1	1	200.00	- 20.00	180.00]\n         VENTA [Servicio] [0010 CARA COMPLETA C/HILO - CEJA] - [1] - [1] - [1] - [200.00] - [- 20.00] - [180.00] - <br>
+2 Analizando->:[Servicio	0010 CARA COMPLETA C/HILO - COMPLEMENTO DE CARA	1	1	1	400.00	- 40.00	360.00]\n         VENTA [Servicio] [0010 CARA COMPLETA C/HILO - COMPLEMENTO DE CARA] - [1] - [1] - [1] - [400.00] - [- 40.00] - [360.00] - <br>
+2 Analizando->:[Subtotal Productos y Servicios  	44	44	44	8,375.00	- 839.00	7,537.50]
+2 Analizando->:[Bonificación	5TA VISITA	2	2	2	- 115.00	- 0.00	- 115.00]\n         VENTA [Bonificación] [5TA VISITA] - [2] - [2] - [2] - [-115.00] - [- 0.00] - [-115.00] - <br>
+2 Analizando->:[Subtotal con Bonificaciones  	2	2	2	8,260.00	- 839.00	7,422.50]
+2 Analizando->:[Pago	EFECTIVO	25	25	25	5,680.00	- 0.00	5,680.00]\n         VENTA [Pago] [EFECTIVO] - [25] - [25] - [25] - [5680.00] - [- 0.00] - [5680.00] - <br>
+2 Analizando->:[Pago	TARJETA	6	6	6	2,580.00	- 0.00	2,580.00]\n         VENTA [Pago] [TARJETA] - [6] - [6] - [6] - [2580.00] - [- 0.00] - [2580.00] - <br>
+2 Analizando->:[Subtotal Pagos  	31	31	31	8,260.00	- 0.00	8,260.00]
+2 Analizando->:[Total  	31	31	31	8,260.00	- 839.00	7,421.00]
+2 Analizando->:[]

@@ -64,10 +64,10 @@
 
 <div class="row" *ngIf="verDetalleSol">
   <div class="col-sm-1">
-    <button  md-raised-button color="primary" (click)="regresar()">Regresar</button>
+    <button  md-raised-button color="primary" (click)="regresar()"><i class="material-icons">keyboard_backspace</i></button>
   </div>
   <div class="col-sm-1">
-    <button  md-raised-button color="primary" (click)="agregarProducto()">Agregar</button>
+    <button  md-raised-button color="primary" (click)="agregarProducto()"><i class="material-icons">add_shopping_cart</i></button>
   </div>
 </div>
 
@@ -75,6 +75,7 @@
   <thead>
     <tr>
       <th >*</th>
+      <th >No.</th>
       <th>Producto</th>
       <th>Cantidad</th>
       <th>Precio</th>
@@ -86,14 +87,29 @@
   <tbody>
     <tr *ngFor="let dts of detalle;let i=index">
       <td scope="row">
-        <md-icon class="btnl" md-list-icon >delete</md-icon>
+        <md-icon class="btnl" md-list-icon *ngIf="dts.estado==0" (click)="eliminarProducto(i)">delete</md-icon>
+        <md-icon class="btnl" md-list-icon *ngIf="dts.estado==0" (click)="editarProducto(dts)">mode_edit</md-icon>
+        <md-icon class="btnl" md-list-icon *ngIf="dts.estado==1" (click)="guardarProducto(dts)">save</md-icon>
       </td>
-      <td class="text-left">{{dts.producto }}</td>
-      <td class="text-right">{{dts.cantidad }}</td>
-      <td class="text-right">{{dts.precio | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
-      <td class="text-right">{{dts.precio*dts.cantidad | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
-      <td class="text-right">{{dts.precio*dts.cantidad*0.16 | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
-      <td class="text-right">{{dts.precio*dts.cantidad*1.16 | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+      <td>{{i+1}}</td>
+      <td class="text-left" *ngIf="dts.estado==0">{{dts.descripcion }}</td>
+      <td  *ngIf="dts.estado==1">
+        <md-select placeholder="Producto:" [(ngModel)]="producto" >
+          <md-option *ngFor="let producto of cproductos" [value]="producto">
+            {{ producto.descripcion }}
+          </md-option>
+        </md-select>
+      </td>
+      <td class="text-right" *ngIf="dts.estado==0">{{dts.solicitado }}</td>
+      <td class="text-right" *ngIf="dts.estado==1">
+         <md-form-field class="example-full-width">
+            <input mdInput type="number" placeholder="Cantidad" [(ngModel)]="solicitado">
+          </md-form-field>
+      </td>
+      <td class="text-right">{{dts.precio_compra | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+      <td class="text-right">{{dts.precio_compra*dts.solicitado | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+      <td class="text-right">{{dts.precio_compra*dts.solicitado*0.16 | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
+      <td class="text-right">{{dts.precio_compra*dts.solicitado*1.16 | currency:'MXN':'symbol-narrow':'.2-2'}}</td>
     </tr>
   </tbody>
 </table>

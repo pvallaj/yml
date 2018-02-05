@@ -36,3 +36,7 @@
   color:blue;
   font-weight: bold;
 }
+
+.mat-select{
+  width: 100%;
+}

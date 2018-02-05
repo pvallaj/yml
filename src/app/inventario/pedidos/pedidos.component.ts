@@ -21,10 +21,9 @@ export class PedidosComponent implements OnInit {
     right: false
   };
   registros:any;
-  detalle:any; 
   verDetalleSol:boolean=false;
   cargando:boolean=false;
-
+  cproductos:any;
 
   regtmp:{fecha:string,monto:number,descripcion:string, id:number};
   constructor(private cnx:Coneccion, private us:UtilS, public cs:CatalogosService) {
@@ -35,12 +34,18 @@ export class PedidosComponent implements OnInit {
        this.cnx.ejecutar({
             accion:'7:6'
         }).subscribe((resp:any)=>this.cargaProductosR(resp),(ru:any)=>this.error(ru));
+    }else{
+      console.log("catalogo en memoria");
+      this.cproductos=this.cs.obtCatalogo('productos');
+      console.log(this.cproductos);
     }
   }
 
   cargaProductosR(resp){
      this.cs.agregarCatalogo('productos',resp.productos);
      console.log('Productos cargados: '+resp.productos.length);
+     this.cproductos=this.cs.obtCatalogo('productos');
+     console.log(this.cproductos);
   }
   ngOnInit() {
     this.cargando=true;
@@ -145,11 +150,42 @@ export class PedidosComponent implements OnInit {
   /*
   Detalle de pedido-------
   */
-  detallePedido=[];
+  detalle=[];
   productos=[];
+  //model
+  producto:any;
+  solicitado:any;
   agregarProducto(){
-
+    let np={
+      clave:0,
+      descripcion:'sin especificar',
+      solicitado:0,
+      precio_compra:0,
+      entregado:0,
+      fecha_entrega:'',
+      estado:1
+    }
+    this.producto=this.cproductos[0];
+    this.solicitado=0;
+    this.detalle.push(np);
   }
+  editarProducto(registro:any){
+    registro.estado=1;
+  }
+  eliminarProducto(idx:any){
+    this.detalle.splice(idx,1);
+  }
+  guardarProducto(registro:any){
+    console.log(this.producto);
+    console.log(this.solicitado);
+    console.log(registro);
+    registro.clave=this.producto.clave;
+    registro.descripcion=this.producto.descripcion;
+    registro.solicitado=this.solicitado;
+    registro.precio_compra=this.producto.precio_compra;
+    registro.estado=0;
+  }
+
   error(ru){
     console.log(ru);
   }

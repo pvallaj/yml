@@ -13,7 +13,7 @@ export class Coneccion{
   private headers:Headers;
   private url:string
   private opciones:RequestOptions;
-  private servl:string='http://yameltexcoco.com.mx';
+  private servl:string='http://192.168.64.2';
   public  componente:string='/index.php';
   public  metodo:string='';
   public  base:string='/yws';
